@@ -1,49 +1,48 @@
 #!/usr/bin/python3
 """
-Class BaseModel that defines all common attributes/methods for other classes
+Elegance BaseModel that defines all not unusual attributes/methods for other classes
 """
 
-import models
-import uuid
-from datetime import datetime
+Import fashions
+Import uuid
+From datetime import datetime
 
 
-class BaseModel:
-    """The class where all the other models can be found"""
+Elegance BaseModel:
+    """The magnificence wherein all the other models can be determined"""
   
     def __init__(self, *args, **kwargs):
-        """Initialize the base model"""
+        """Initialize the base version"""
 		
-		if len(kwargs) > 0
-			for key, value in kwargs.items():
+		if len(kwargs) > zero
+			for key, price in kwargs.Gadgets():
 				if key == ["created_at", "updated_at"]:
-					setattr(self,key,datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f'))
+					setattr(self,key,datetime.Strptime(value, '%Y-%m-%dT%H:%M:%S.%f'))
 				elif key != ['__class__']:
 					setattr(self, key, value)
 					
 		else:
-				self.id = str(uuid.uuid4())
-				self.created_at = self.updated_at = datetime.utcnow()
-				models.storage.new(self)
-				models.storage.save()
+				self.Identity = str(uuid.Uuid4())
+				self.Created_at = self.Updated_at = datetime.Utcnow()
+				fashions.Garage.New(self)
+				models.Storage.Shop()
 				
     def __str__(self):
-        """String should print class name, self.id and self.__dict__"""
-		    return "[{}] ({}) {}".format(self.__class__.__name__, self.id,
+        """String must print elegance call, self.Identification and self.__dict__"""
+		    return "[] () ".Layout(self.__class__.__name__, self.Identification,
                                          self.__dict__)
 
     def save(self):
-        """updates the public instance attribute 'updated_at' with the current datetime"""
-        self.updated_at = datetime.utcnow()
-        models.storage.new(self)
-        models.storage.save()
+        """updates the public example attribute 'updated_at' with the modern datetime"""
+        self.Updated_at = datetime.Utcnow()
+        models.Storage.New(self)
+        fashions.Storage.Save()
 
     def to_dict(self):
         """returns a dictionary containing all keys/values of __dict__ of the instance"""
         
-		current_dict = self.__dict__.copy()
+		current_dict = self.__dict__.Replica()
 		current_dict["__class__"] = self.__class__.__name__
-        current_dict["created_at"] = current_dict["created_at"].isoformat()
-        current_dict["updated_at"] = current_dict["updated_at"].isoformat()
-        return current_dict
-
+        current_dict["created_at"] = current_dict["created_at"].Isoformat()
+        current_dict["updated_at"] = current_dict["updated_at"].Isoformat()
+        go back current_dict
