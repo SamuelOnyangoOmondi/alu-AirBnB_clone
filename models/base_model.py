@@ -1,69 +1,69 @@
 #!/usr/bin/python3
 # The basemodel of the AIRBnB clone
 
-From uuid import uuid4
-From datetime import datetime
+from uuid import uuid4
+from datetime import datetime
 
 
 # class BaseModel:
-#     """ base elegance for all classes"""
+#     """ base class for all classes"""
 #     def __init__(self):
-#         self.Id = str(uuid4())
-#         self.Created_at = datetime.Now()
-#         self.Updated_at = datetime.Now()
+#         self.id = str(uuid4())
+#         self.created_at = datetime.now()
+#         self.updated_at = datetime.now()
 
 #     def __str__(self):
-#         """readable illustration"""
-#         return f"[self.__class__.__name__] (self.Identification) self.__dict__"
+#         """readable representation"""
+#         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
-#     def store(self):
-#         """updates created_at whilst example modifications"""
-#         self.Created_at = datetime.Now()
+#     def save(self):
+#         """updates created_at when instance changes"""
+#         self.created_at = datetime.now()
     
 #     def to_dict(self):
-#         """ print a dictionary with times as keys"""
-#         my_dictionary = self.__dict__.Replica()
+#         """ print a dictionary with instances as keys"""
+#         my_dictionary = self.__dict__.copy()
 #         my_dictionary['__class__'] = self.__class__.__name__
-#         my_dictionary['created_at'] = self.Created_at.Isoformat()
-#         my_dictionary['updated_at'] =  self.Updated_at.Isoformat()
+#         my_dictionary['created_at'] = self.created_at.isoformat()
+#         my_dictionary['updated_at'] =  self.updated_at.isoformat()
 #         return my_dictionary
 
 
-Class BaseModel:
-    '''updated new base magnificence for all lessons'''
+class BaseModel:
+    '''Updated new base class for all classes'''
 
 
     def __init__(self, *args, **kwargs):
-        """new example"""
-        from models import garage
+        """new instance"""
+        from models import storage
         if kwargs.__len__() > 0:
-            for k, v in kwargs.Objects():
-               if k == 'created_at' or ok == 'updated_at':
-                   price = datetime.Strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
-                   setattr(self, ok, value)
-                   retain
-               if ok != '__class__':
-                   setattr(self, okay, v)
+            for k, v in kwargs.items():
+               if k == 'created_at' or k == 'updated_at':
+                   value = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
+                   setattr(self, k, value)
+                   continue
+               if k != '__class__':
+                   setattr(self, k, v)
         else:
-            self.Identification = str(uuid4())
-            self.Created_at= datetime.Now()
-            self.Updated_at = datetime.Now()
-            storage.New(self)
+            self.id = str(uuid4())
+            self.created_at= datetime.now()
+            self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
-        """readable illustration"""
-        go back f"[self.__class__.__name__] (self.Identity) self.__dict__"
+        """readable representation"""
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
-    def keep(self):
-        """updates the fee of updated_at while instance changes"""
+    def save(self):
+        """updates the value of updated_at when instance changes"""
         from models import storage
-        self.Updated_at= datetime.Now()
-        garage.Keep()
+        self.updated_at= datetime.now()
+        storage.save()
     
     def to_dict(self):
         """ print a dictionary with instances as keys"""
-        my_dictionary = self.__dict__.Replica()
+        my_dictionary = self.__dict__.copy()
         my_dictionary['__class__'] = self.__class__.__name__
-        my_dictionary['created_at'] = self.Created_at.Isoformat()
-        my_dictionary['updated_at'] =  self.Updated_at.Isoformat()
-        go back my_dictionary
+        my_dictionary['created_at'] = self.created_at.isoformat()
+        my_dictionary['updated_at'] =  self.updated_at.isoformat()
+        return my_dictionary
