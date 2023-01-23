@@ -1,48 +1,43 @@
 #!/usr/bin/python3
-"""
-Elegance BaseModel that defines all not unusual attributes/methods for other classes
-"""
+# The basemodel of the AIRBnB clone
 
-Import fashions
-Import uuid
-From datetime import datetime
+from uuid import uuid4
+from datetime import datetime
+class BaseModel:
+    '''Updated new base class for all classes'''
 
 
-Elegance BaseModel:
-    """The magnificence wherein all the other models can be determined"""
-  
     def __init__(self, *args, **kwargs):
-        """Initialize the base version"""
-		
-		if len(kwargs) > zero
-			for key, price in kwargs.Gadgets():
-				if key == ["created_at", "updated_at"]:
-					setattr(self,key,datetime.Strptime(value, '%Y-%m-%dT%H:%M:%S.%f'))
-				elif key != ['__class__']:
-					setattr(self, key, value)
-					
-		else:
-				self.Identity = str(uuid.Uuid4())
-				self.Created_at = self.Updated_at = datetime.Utcnow()
-				fashions.Garage.New(self)
-				models.Storage.Shop()
-				
+        """new instance"""
+        from models import storage
+        if kwargs.__len__() > 0:
+            for k, v in kwargs.items():
+               if k == 'created_at' or k == 'updated_at':
+                   value = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
+                   setattr(self, k, value)
+                   continue
+               if k != '__class__':
+                   setattr(self, k, v)
+        else:
+            self.id = str(uuid4())
+            self.created_at= datetime.now()
+            self.updated_at = datetime.now()
+            storage.new(self)
+
     def __str__(self):
-        """String must print elegance call, self.Identification and self.__dict__"""
-		    return "[] () ".Layout(self.__class__.__name__, self.Identification,
-                                         self.__dict__)
+        """readable representation"""
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
-        """updates the public example attribute 'updated_at' with the modern datetime"""
-        self.Updated_at = datetime.Utcnow()
-        models.Storage.New(self)
-        fashions.Storage.Save()
-
+        """updates the value of updated_at when instance changes"""
+        from models import storage
+        self.updated_at= datetime.now()
+        storage.save()
+    
     def to_dict(self):
-        """returns a dictionary containing all keys/values of __dict__ of the instance"""
-        
-		current_dict = self.__dict__.Replica()
-		current_dict["__class__"] = self.__class__.__name__
-        current_dict["created_at"] = current_dict["created_at"].Isoformat()
-        current_dict["updated_at"] = current_dict["updated_at"].Isoformat()
-        go back current_dict
+        """ print a dictionary with instances as keys"""
+        my_dictionary = self.__dict__.copy()
+        my_dictionary['__class__'] = self.__class__.__name__
+        my_dictionary['created_at'] = self.created_at.isoformat()
+        my_dictionary['updated_at'] =  self.updated_at.isoformat()
+        return my_dictionary
