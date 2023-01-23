@@ -1,48 +1,69 @@
 #!/usr/bin/python3
-"""
-Elegance BaseModel that defines all not unusual attributes/methods for other classes
-"""
+# The basemodel of the AIRBnB clone
 
-Import fashions
-Import uuid
+From uuid import uuid4
 From datetime import datetime
 
 
-Elegance BaseModel:
-    """The magnificence wherein all the other models can be determined"""
-  
+# class BaseModel:
+#     """ base elegance for all classes"""
+#     def __init__(self):
+#         self.Id = str(uuid4())
+#         self.Created_at = datetime.Now()
+#         self.Updated_at = datetime.Now()
+
+#     def __str__(self):
+#         """readable illustration"""
+#         return f"[self.__class__.__name__] (self.Identification) self.__dict__"
+
+#     def store(self):
+#         """updates created_at whilst example modifications"""
+#         self.Created_at = datetime.Now()
+    
+#     def to_dict(self):
+#         """ print a dictionary with times as keys"""
+#         my_dictionary = self.__dict__.Replica()
+#         my_dictionary['__class__'] = self.__class__.__name__
+#         my_dictionary['created_at'] = self.Created_at.Isoformat()
+#         my_dictionary['updated_at'] =  self.Updated_at.Isoformat()
+#         return my_dictionary
+
+
+Class BaseModel:
+    '''updated new base magnificence for all lessons'''
+
+
     def __init__(self, *args, **kwargs):
-        """Initialize the base version"""
-		
-		if len(kwargs) > zero
-			for key, price in kwargs.Gadgets():
-				if key == ["created_at", "updated_at"]:
-					setattr(self,key,datetime.Strptime(value, '%Y-%m-%dT%H:%M:%S.%f'))
-				elif key != ['__class__']:
-					setattr(self, key, value)
-					
-		else:
-				self.Identity = str(uuid.Uuid4())
-				self.Created_at = self.Updated_at = datetime.Utcnow()
-				fashions.Garage.New(self)
-				models.Storage.Shop()
-				
+        """new example"""
+        from models import garage
+        if kwargs.__len__() > 0:
+            for k, v in kwargs.Objects():
+               if k == 'created_at' or ok == 'updated_at':
+                   price = datetime.Strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
+                   setattr(self, ok, value)
+                   retain
+               if ok != '__class__':
+                   setattr(self, okay, v)
+        else:
+            self.Identification = str(uuid4())
+            self.Created_at= datetime.Now()
+            self.Updated_at = datetime.Now()
+            storage.New(self)
+
     def __str__(self):
-        """String must print elegance call, self.Identification and self.__dict__"""
-		    return "[] () ".Layout(self.__class__.__name__, self.Identification,
-                                         self.__dict__)
+        """readable illustration"""
+        go back f"[self.__class__.__name__] (self.Identity) self.__dict__"
 
-    def save(self):
-        """updates the public example attribute 'updated_at' with the modern datetime"""
-        self.Updated_at = datetime.Utcnow()
-        models.Storage.New(self)
-        fashions.Storage.Save()
-
+    def keep(self):
+        """updates the fee of updated_at while instance changes"""
+        from models import storage
+        self.Updated_at= datetime.Now()
+        garage.Keep()
+    
     def to_dict(self):
-        """returns a dictionary containing all keys/values of __dict__ of the instance"""
-        
-		current_dict = self.__dict__.Replica()
-		current_dict["__class__"] = self.__class__.__name__
-        current_dict["created_at"] = current_dict["created_at"].Isoformat()
-        current_dict["updated_at"] = current_dict["updated_at"].Isoformat()
-        go back current_dict
+        """ print a dictionary with instances as keys"""
+        my_dictionary = self.__dict__.Replica()
+        my_dictionary['__class__'] = self.__class__.__name__
+        my_dictionary['created_at'] = self.Created_at.Isoformat()
+        my_dictionary['updated_at'] =  self.Updated_at.Isoformat()
+        go back my_dictionary
