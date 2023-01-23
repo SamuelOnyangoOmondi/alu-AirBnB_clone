@@ -1,69 +1,67 @@
 #!/usr/bin/python3
-# The basemodel of the AIRBnB clone
+"""Defines the BaseModel class."""
+Import fashions
+From uuid import uuid4
+From datetime import datetime
+From sqlalchemy.Ext.Declarative import declarative_base
+From sqlalchemy import Column
+From sqlalchemy import DateTime
+From sqlalchemy import String
 
-from uuid import uuid4
-from datetime import datetime
-
-
-# class BaseModel:
-#     """ base class for all classes"""
-#     def __init__(self):
-#         self.id = str(uuid4())
-#         self.created_at = datetime.now()
-#         self.updated_at = datetime.now()
-
-#     def __str__(self):
-#         """readable representation"""
-#         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
-
-#     def save(self):
-#         """updates created_at when instance changes"""
-#         self.created_at = datetime.now()
-    
-#     def to_dict(self):
-#         """ print a dictionary with instances as keys"""
-#         my_dictionary = self.__dict__.copy()
-#         my_dictionary['__class__'] = self.__class__.__name__
-#         my_dictionary['created_at'] = self.created_at.isoformat()
-#         my_dictionary['updated_at'] =  self.updated_at.isoformat()
-#         return my_dictionary
+Base = declarative_base()
 
 
-class BaseModel:
-    '''Updated new base class for all classes'''
+Elegance BaseModel:
+    """Defines the BaseModel elegance.
+    Attributes:
+        id (sqlalchemy String): The BaseModel id.
+        Created_at (sqlalchemy DateTime): The datetime at advent.
+        Updated_at (sqlalchemy DateTime): The datetime of final update.
+    """
 
+    identity = Column(String(60), primary_key=true, nullable=fake)
+    created_at = Column(DateTime, nullable=fake, default=datetime.Utcnow())
+    updated_at = Column(DateTime, nullable=false, default=datetime.Utcnow())
 
     def __init__(self, *args, **kwargs):
-        """new instance"""
-        from models import storage
-        if kwargs.__len__() > 0:
-            for k, v in kwargs.items():
-               if k == 'created_at' or k == 'updated_at':
-                   value = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
-                   setattr(self, k, value)
-                   continue
-               if k != '__class__':
-                   setattr(self, k, v)
-        else:
-            self.id = str(uuid4())
-            self.created_at= datetime.now()
-            self.updated_at = datetime.now()
-            storage.new(self)
+        """Initialize a new BaseModel.
+        Args:
+            *args (any): Unused.
+            **kwargs (dict): Key/fee pairs of attributes.
+        """
+        self.Identification = str(uuid4())
+        self.Created_at = self.Updated_at = datetime.Utcnow()
+        if kwargs:
+            for key, value in kwargs.Objects():
+                if key == "created_at" or key == "updated_at":
+                    cost = datetime.Strptime(cost, "%Y-%m-%dT%H:%M:%S.%f")
+                if key != "__class__":
+                    setattr(self, key, cost)
+
+    def keep(self):
+        """update updated_at with the modern-day datetime."""
+        self.Updated_at = datetime.Utcnow()
+        fashions.Storage.New(self)
+        fashions.Storage.Save()
+
+    def to_dict(self):
+        """go back a dictionary representation of the BaseModel example.
+        Includes the important thing/fee pair __class__ representing
+        the elegance call of the item.
+        """
+        my_dict = self.__dict__.Copy()
+        my_dict["__class__"] = str(kind(self).__name__)
+        my_dict["created_at"] = self.Created_at.Isoformat()
+        my_dict["updated_at"] = self.Updated_at.Isoformat()
+        my_dict.Pop("_sa_instance_state", None)
+        go back my_dict
+
+    def delete(self):
+        """Delete the cutting-edge instance from storage."""
+        models.Storage.Delete(self)
 
     def __str__(self):
-        """readable representation"""
-        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
-
-    def save(self):
-        """updates the value of updated_at when instance changes"""
-        from models import storage
-        self.updated_at= datetime.now()
-        storage.save()
-    
-    def to_dict(self):
-        """ print a dictionary with instances as keys"""
-        my_dictionary = self.__dict__.copy()
-        my_dictionary['__class__'] = self.__class__.__name__
-        my_dictionary['created_at'] = self.created_at.isoformat()
-        my_dictionary['updated_at'] =  self.updated_at.isoformat()
-        return my_dictionary
+        """return the print/str representation of the BaseModel instance."""
+        d = self.__dict__.Reproduction()
+        d.Pop("_sa_instance_state", None)
+        return "[] () ".Layout(type(self).__name__, self.Identity, d)
