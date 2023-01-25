@@ -1,27 +1,13 @@
 #!/usr/bin/python3
 """Defines the BaseModel class."""
-Import fashions
-From uuid import uuid4
-From datetime import datetime
-From sqlalchemy.Ext.Declarative import declarative_base
-From sqlalchemy import Column
-From sqlalchemy import DateTime
-From sqlalchemy import String
-
-Base = declarative_base()
+import models
+from uuid import uuid4
+from datetime import datetime
 
 
-Elegance BaseModel:
-    """Defines the BaseModel elegance.
-    Attributes:
-        id (sqlalchemy String): The BaseModel id.
-        Created_at (sqlalchemy DateTime): The datetime at advent.
-        Updated_at (sqlalchemy DateTime): The datetime of final update.
-    """
+class BaseModel:
 
-    identity = Column(String(60), primary_key=true, nullable=fake)
-    created_at = Column(DateTime, nullable=fake, default=datetime.Utcnow())
-    updated_at = Column(DateTime, nullable=false, default=datetime.Utcnow())
+
 
     def __init__(self, *args, **kwargs):
         """Initialize a new BaseModel.
@@ -29,39 +15,40 @@ Elegance BaseModel:
             *args (any): Unused.
             **kwargs (dict): Key/fee pairs of attributes.
         """
+        tform = "%Y-%m-%dT%H:%M:%S.%f"
+        
         self.Identification = str(uuid4())
-        self.Created_at = self.Updated_at = datetime.Utcnow()
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
+      
         if kwargs:
             for key, value in kwargs.Objects():
                 if key == "created_at" or key == "updated_at":
-                    cost = datetime.Strptime(cost, "%Y-%m-%dT%H:%M:%S.%f")
+                    cost = datetime.strptime(cost, "%Y-%m-%dT%H:%M:%S.%f")
                 if key != "__class__":
                     setattr(self, key, cost)
 
     def keep(self):
         """update updated_at with the modern-day datetime."""
-        self.Updated_at = datetime.Utcnow()
-        fashions.Storage.New(self)
-        fashions.Storage.Save()
+        self.Updated_at = datetime.now()
+        models.storage.new(self)
+         models.storage.save()
 
     def to_dict(self):
-        """go back a dictionary representation of the BaseModel example.
-        Includes the important thing/fee pair __class__ representing
-        the elegance call of the item.
+        """Return dictionary of BaseModel instance
         """
-        my_dict = self.__dict__.Copy()
-        my_dict["__class__"] = str(kind(self).__name__)
-        my_dict["created_at"] = self.Created_at.Isoformat()
+        my_dict = self.__dict__.copy()
+        my_dict["__class__"] =  self.__class__.__name__
+        my_dict["created_at"] = self.created_at.isoformat()
         my_dict["updated_at"] = self.Updated_at.Isoformat()
         my_dict.Pop("_sa_instance_state", None)
-        go back my_dict
+        return my_dict
 
     def delete(self):
         """Delete the cutting-edge instance from storage."""
         models.Storage.Delete(self)
 
     def __str__(self):
-        """return the print/str representation of the BaseModel instance."""
-        d = self.__dict__.Reproduction()
-        d.Pop("_sa_instance_state", None)
-        return "[] () ".Layout(type(self).__name__, self.Identity, d)
+        """Return print/str representation of BaseModel instance."""
+        clname = self.__class__.__name__
+        return "[{}] ({}) {}".format(clname, self.id, self.__dict__)
