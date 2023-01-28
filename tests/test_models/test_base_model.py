@@ -1,46 +1,76 @@
 #!/usr/bin/python3
+
+
+"""Unittest module for the BaseModel Class."""
+
+from models import storage
+from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
+from datetime import datetime
+import json
+import os
+import re
+import time
 import unittest
 import time
-from models.base_model import BaseModel
+import uuid
+from io import StringIO
+from unittest.mock import patch
 
 
 class TestBaseModel(unittest.TestCase):
     """Test cases for BaseModel ."""
 
-    def setUp(self):
-        self.testModel = BaseModel()
+    def test_instance(self):
+        """test instance."""
+        base = BaseModel()
+        self.assertIsInstance(base, BaseModel)
+
+    def test_is_class(self):
+        """test instance."""
+        base = BaseModel()
+        self.assertEqual(str(type(base)),
+                         "<class 'models.base_model.BaseModel'>")
 
     def test_save(self):
         """test save."""
-        updated_at_before_save = self.testModel.updated_at
-        time.sleep(0.5)
-        self.testModel.save()
-        updated_at_after_save = self.testModel.updated_at
-        self.assertNotEqual(updated_at_before_save, updated_at_after_save)
+        base = BaseModel()
+        time.sleep(1)
+        base.save()
+        self.assertNotEqual(base.updated_at, base.created_at)
+        self.assertTrue(base.updated_at > base.created_at)
 
-    # test BaseModel to_dict method return type
-    def test_to_dict_return(self):
-        testModel_dict = self.testModel.to_dict()
-        self.assertIsInstance(testModel_dict, dict)
+    def test_save_file(self):
+        """test save."""
+        if os.path.isfile("file.json"):
+            os.remove(os.path.join("file.json"))
+            print(os.path.isfile("file.json"))
+        base = BaseModel()
+        print(base.id)
+        time.sleep(1)
+        base.save()
+        self.assertTrue(os.path.isfile("file.json"))
+        with open("file.json", 'w') as file:
+            serialized_content = json.load(file)
+            for item in serialized_content.values():
+                self.assertIsNotNone(item['__class__'])
 
-    # test BaseModel to_dict method for it's content.
-    def test_to_dict_value(self):
-        testModel_dict = self.testModel.to_dict()
-        self.assertIn('__class__', testModel_dict)
+    def test_str_(self):
+        """test str."""
+        base = BaseModel()
 
-    # test BaseModel to_dict method if it's content has the correct types
-    def test_to_dict_content_type(self):
-        testModel_dict = self.testModel.to_dict()
-        self.assertIsInstance(testModel_dict.get('created_at'), str)
-        self.assertIsInstance(testModel_dict.get('created_at'), str)
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            print(base)
+            self.assertEqual(fake_out.getvalue(),
+                             "[{}] ({}) {}\n".format(base.__class__.__name__,
+                                                     base.id,
+                                                     base.__dict__))
 
-    # test string value of BaseModel
-    def test__str__(self):
-        class_name = self.testModel.__class__.__name__
-        id = self.testModel.id
-        dict_v = self.testModel.__dict__
-        self.assertEqual(str(self.testModel),
-                         f"[{class_name}] ({id}) {dict_v}")
+    def test_to_dict(self):
+        """test dict."""
+        base = BaseModel()
+        dict_repr = base.to_dict()
+        self.assertTrue(dict_repr['__class__'] == base.__class__.__name__)
 
 
 if __name__ == "__main__":
