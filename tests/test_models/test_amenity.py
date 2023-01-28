@@ -7,17 +7,17 @@ from models import BaseModel
 
 
 class TestAmenity(unittest.TestCase):
-    """Test cases for  Amenity class."""
+    """Test cases for Amenity class."""
 
-        
-        def setUp(self):
+    def setUp(self):
         self.testAmenity = Amenity()
 
     def test_amenity(self):
         self.assertTrue(issubclass(self.testAmenity.__class__, BaseModel))
 
-   def test_name(self):
+    def test_name(self):
         self.assertIsInstance(self.testAmenity.name, str)
 
- if __name__ == "__main__":
+
+if __name__ == "__main__":
     unittest.main()
