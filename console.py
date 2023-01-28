@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""console"""
+"""Defines bnb console"""
 
 import cmd
 import sys
