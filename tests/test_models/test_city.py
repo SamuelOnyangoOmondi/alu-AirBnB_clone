@@ -10,7 +10,7 @@ from models.city import City
 class TestCity(unittest.TestCase):
     """Test cases City class."""
 
-  def setUp(self):
+    def setUp(self):
         self.testCity = City()
 
     def test_is_class(self):
@@ -19,6 +19,7 @@ class TestCity(unittest.TestCase):
 
     def test_is_subclass(self):
         self.assertIsInstance(self.testCity.name, str)
+
 
 if __name__ == "__main__":
     unittest.main()
