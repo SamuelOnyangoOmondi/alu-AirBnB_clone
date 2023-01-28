@@ -1,60 +1,77 @@
-"""
-Checks the base model attributes
-"""
+#!/usr/bin/python3
 
 
-From models.Base_model import BaseModel
-Import unittest
+"""Unittest module for the BaseModel Class."""
+
+from models import storage
+from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
+from datetime import datetime
+import json
+import os
+import re
+import time
+import unittest
+import time
+import uuid
+from io import StringIO
+from unittest.mock import patch
 
 
-Elegance TestBaseModel(unittest.TestCase):
-    """
-    assessments each aspect of advent of a base version
-    """
+class TestBaseModel(unittest.TestCase):
+    """Test cases for BaseModel ."""
 
-    def setUp(self) -> None:
-        self.B1 = BaseModel()
-        self.B3 = BaseModel()
-        self.B1_to_dict  = self.B1.To_dict()
-        self.B2 = BaseModel(**self.B1_to_dict)
+    def test_instance(self):
+        """test instance."""
+        base = BaseModel()
+        self.assertIsInstance(base, BaseModel)
 
-    def test_to_dict_method(self):
-        """
-        checks if the to_dict technique converts the basemodel to dictionary
-        """
-        self.AssertEqual(kind(self.B1_to_dict), dict)
-    
-    def test_to_dict(self):
-        """testing to dict approach"""
-        self.AssertIsInstance(self.B1_to_dict['updated_at'], str)
-
-    def test_id_when_obj_created(self):
-        """
-        tests if an id is created when basemodel item is instantiated
-        """
-
-        self.AssertIsNotNone(self.B1.Identification)
-
-    def test_obj_is_instance(self):
-        """
-        checks if the example b1 and b2 are times of BaseModel class
-        """
-
-        self.AssertIsInstance(self.B1, BaseModel);
-        self.AssertIsInstance(self.B2, BaseModel)
-
-    def test_str_(self):
-        """ exams id __str__ prints a readable representation"""
-        self.AssertEqual(str(self.B1), f"[self.B1.__class__.__name__] (self.B1.Identity) self.B1.__dict__") 
-
-    def test_created_at_obj_created(self):
-        self.AssertIsNotNone(self.B1.Created_at)
+    def test_is_class(self):
+        """test instance."""
+        base = BaseModel()
+        self.assertEqual(str(type(base)),
+                         "<class 'models.base_model.BaseModel'>")
 
     def test_save(self):
-        self.B1.Store()
-        self.B3.Store()
-        self.AssertNotEqual(self.B1.Updated_at, self.B3.Updated_at)
+        """test save."""
+        base = BaseModel()
+        time.sleep(1)
+        base.save()
+        self.assertNotEqual(base.updated_at, base.created_at)
+        self.assertTrue(base.updated_at > base.created_at)
+
+    def test_save_file(self):
+        """test save."""
+        if os.path.isfile("file.json"):
+            os.remove(os.path.join("file.json"))
+            print(os.path.isfile("file.json"))
+        base = BaseModel()
+        print(base.id)
+        time.sleep(1)
+        base.save()
+        self.assertTrue(os.path.isfile("file.json"))
+        with open("file.json", 'w') as file:
+            serialized_content = json.load(file)
+            for item in serialized_content.values():
+                self.assertIsNotNone(item['__class__'])
+
+    def test_str_(self):
+        """test str."""
+        base = BaseModel()
+
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            print(base)
+            self.assertEqual(fake_out.getvalue(),
+                             "[{}] ({}) {}\n".format(base.__class__.__name__,
+                                                     base.id,
+                                                     base.__dict__))
+
+    def test_to_dict(self):
+        """test dict."""
+        base = BaseModel()
+        dict_repr = base.to_dict()
+        self.assertTrue(dict_repr['__class__'] == base.__class__.__name__)
 
 
-If __name__ == '__main__':
-    unittest.Predominant()
+if __name__ == "__main__":
+    unittest.main()
