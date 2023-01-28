@@ -6,35 +6,35 @@ from models.base_model import BaseModel
 
 class TestBaseModel(unittest.TestCase):
     """Test cases for BaseModel ."""
-    
-   def setUp(self):
+
+    def setUp(self):
         self.testModel = BaseModel()
 
     def test_save(self):
         """test save."""
-       updated_at_before_save = self.testModel.updated_at
-       time.sleep(0.5)
-       self.testModel.save()
-       updated_at_after_save = self.testModel.updated_at
-       self.assertNotEqual(updated_at_before_save, updated_at_after_save)
+        updated_at_before_save = self.testModel.updated_at
+        time.sleep(0.5)
+        self.testModel.save()
+        updated_at_after_save = self.testModel.updated_at
+        self.assertNotEqual(updated_at_before_save, updated_at_after_save)
 
     # test BaseModel to_dict method return type
     def test_to_dict_return(self):
         testModel_dict = self.testModel.to_dict()
         self.assertIsInstance(testModel_dict, dict)
 
-     # test BaseModel to_dict method for it's content.
+    # test BaseModel to_dict method for it's content.
     def test_to_dict_value(self):
         testModel_dict = self.testModel.to_dict()
-          self.assertIn('__class__', testModel_dict)
+        self.assertIn('__class__', testModel_dict)
 
-   # test BaseModel to_dict method if it's content has the correct types
+    # test BaseModel to_dict method if it's content has the correct types
     def test_to_dict_content_type(self):
         testModel_dict = self.testModel.to_dict()
         self.assertIsInstance(testModel_dict.get('created_at'), str)
         self.assertIsInstance(testModel_dict.get('created_at'), str)
-        
-            # test string value of BaseModel
+
+    # test string value of BaseModel
     def test__str__(self):
         class_name = self.testModel.__class__.__name__
         id = self.testModel.id
