@@ -32,8 +32,8 @@ This console works in interactive mode:
 $ ./console.py
 (hbnb) help
 
-Documented commands (type help <topic>):
-========================================
+####Documented commands:
+
 EOF  help  quit
 
 (hbnb)
@@ -45,16 +45,8 @@ This console also works in non-interactive mode:
 $ ./console.py
 (hbnb) help
 
-Documented commands (type help <topic>):
-========================================
-EOF  help  quit
+####Built-in commands
 
-(hbnb)
-(hbnb)
-(hbnb) quit
-$
-
-Built-in commands
 EOF: Quit the program.
 quit: Quit the program.
 all: Prints all string representation of all instances based.
@@ -78,11 +70,8 @@ Our console also supports alternative methods to call the built-in commands:
 
 ### Examples of the Command Interpreter:
 
-Examples
-(hbnb) help
+####Documented commands:
 
-Documented commands (type help <topic>):
-========================================
 EOF  all  count  create  destroy  help  quit  show  update
 
 (hbnb) help create
