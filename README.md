@@ -19,7 +19,79 @@ Destroy an object
 
 ### How to start the Command Interpreter:
 
+To use this project:
+Clone
+https://github.com/yeungegs/AirBnB_clone.git
+On your machine, navigate (cd) to the newly created directory
+cd AirBnb_clone
+
 ### How to use the command Interpreter:
+
+This console works in interactive mode:
+
+$ ./console.py
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+
+(hbnb)
+(hbnb)
+(hbnb) quit
+$
+This console also works in non-interactive mode:
+
+$ ./console.py
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+
+(hbnb)
+(hbnb)
+(hbnb) quit
+$
+
+Built-in commands
+EOF: Quit the program.
+quit: Quit the program.
+all: Prints all string representation of all instances based.
+all <class name>: Print all the string representation of all instances of one class.
+help: list all the commands in this console.
+help <command>: Provide the document of the command.
+<class name> count: retrieve the number of instances of a class.
+create <class name>: Creates a new instance of the class, saves it (to the JSON file) and prints the id.
+destroy <class name> <id>: Deletes an instance based on the class name and id (save the change into the JSON file).
+show <class name> <id>: Prints the string representation of an instance based on the class name and id.
+update <class name> <id> <attribute name> "<attribute value>": Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file).
+count <class name>: Retrieve the number of instances of a class
+Our console also supports alternative methods to call the built-in commands:
+
+<class name>.all(): Alternative for command 'all'
+<class name>.count(): Alternative for command 'count'
+<class name>.show(<id>): Alternative for command 'show'
+<class name>.destroy(<id>): Alternative for command 'destroy'
+<class name>.update(<id>, <attribute name>, <attribute value>): Alternative for command 'update'
+<class name>.update(<id>, <dictionary representation>): update an instance based on his ID with a dictionary
 
 ### Examples of the Command Interpreter:
 
+Examples
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  count  create  destroy  help  quit  show  update
+
+(hbnb) help create
+Creates a new instance of BaseModel
+        saves it (to the JSON file) and prints the id
+
+(hbnb) create User
+e83b0b29-0f7d-40a1-9095-aa3dbe369d27
+(hbnb) destroy User e83b0b29-0f7d-40a1-9095-aa3dbe369d27
+(hbnb) show User e83b0b29-0f7d-40a1-9095-aa3dbe369d27
+** no instance found **
+(hbnb) quit
