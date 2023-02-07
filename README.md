@@ -78,9 +78,8 @@ EOF  all  count  create  destroy  help  quit  show  update
 Creates a new instance of BaseModel
         saves it (to the JSON file) and prints the id
 
-(hbnb) create User
-e83b0b29-0f7d-40a1-9095-aa3dbe369d27
-(hbnb) destroy User e83b0b29-0f7d-40a1-9095-aa3dbe369d27
-(hbnb) show User e83b0b29-0f7d-40a1-9095-aa3dbe369d27
+(hbnb) create User 
+(hbnb) destroy User 
+(hbnb) show User 
 ** no instance found **
 (hbnb) quit
