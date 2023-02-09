@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 
 """
 Class that defines all common attributes/methods for other classes
@@ -8,17 +8,16 @@ from uuid import uuid4
 from datetime import datetime
 import models
 
-
 class BaseModel:
     """
     The base class for all classes
     """
     def __init__(self, *args, **kwargs):
-        """new instance"""
+        """Initialize the base model"""
         if kwargs.__len__() > 0:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
-                    value = datetime.fromisoformat(value)
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                     setattr(self, key, value)
                     continue
                 if key != '__class__':
@@ -27,7 +26,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
-            models.storage.new(self)
+            # models.storage.new(self)
 
     def __str__(self):
         """ String should print class name, self.id and self.__dict__"""
