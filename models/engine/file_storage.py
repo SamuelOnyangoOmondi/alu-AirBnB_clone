@@ -33,6 +33,7 @@ class FileStorage:
                         self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass  
+         
     
     def save(self):
         """Serializes __objects to the JSON file (path: __file_path)"""
