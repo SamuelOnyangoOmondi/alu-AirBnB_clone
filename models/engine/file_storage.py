@@ -6,7 +6,10 @@ import json
 import models
 from models.base_model import BaseModel
 
-class FileStorage:
+classes = { "BaseModel": BaseModel}
+
+
+class FileStorage:   
     """serializes instances to a JSON file and deserializes JSON file to instances"""
     __file_path = 'file.json'
     __objects = {}
@@ -18,7 +21,7 @@ class FileStorage:
     
     def all(self):
         """returns the dictionary __objects"""
-        return FileStorage._object
+        return FileStorage.__objects
         
     def reload(self):
         """Deserializes the JSON file to __objects (only if the JSON file (__file_path) exists """
@@ -31,11 +34,11 @@ class FileStorage:
         except FileNotFoundError:
             pass  
     
-     def save(self):
+    def save(self):
         """Serializes __objects to the JSON file (path: __file_path)"""
         with open(FileStorage.__file_path, 'w') as f:
             file = {}
             file.update(FileStorage.__objects)
             for key, val in file.items():
                 file[key] = val.to_dict()
-            json.dump(temp, f)
+            json.dump(file, f)
