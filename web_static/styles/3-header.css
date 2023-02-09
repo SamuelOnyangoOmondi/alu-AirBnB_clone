@@ -3,17 +3,14 @@ header {
   height: 70px;
   width: 100%;
   border-bottom: 1px solid #CCCCCC;
-  display: flex;
-  align-items: center;
-  /* padding-left: 20px; */
 }
 
  .header_logo {
-  /* height: 50px; */
+  height: 100%;
   /* width: 50px; */
   margin-left: 20px;
   background-image: url("https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/logo.png");
-  background-size: contain;
+  /* background-size: contain; */
   background-repeat: no-repeat;
 }
 
