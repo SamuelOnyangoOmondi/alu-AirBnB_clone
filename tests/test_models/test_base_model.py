@@ -52,8 +52,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(os.path.isfile("file.json"))
         with open("file.json", 'w') as file:
             serialized_content = json.load(file)
-            for item in serialized_content.values():
-                self.assertIsNotNone(item['__class__'])
+            for instances in serialized_content.values():
+                self.assertIsNotNone(instances['__class__'])
 
     def test_str_(self):
         """test str."""

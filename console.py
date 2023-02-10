@@ -13,15 +13,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
-
-class HBNBCommand(cmd.Cmd):
-    """
-    handles objects
-    """
-
-    prompt = "(hbnb) "
-
-    classes = {
+classes = {
         "BaseModel": BaseModel,
         "User": User,
         "State": State,
@@ -29,6 +21,13 @@ class HBNBCommand(cmd.Cmd):
         "Place": Place,
         "Amenity": Amenity,
         "Review": Review}
+
+class HBNBCommand(cmd.Cmd):
+    """
+    handles objects
+    """
+
+    prompt = "(hbnb) "
 
     def do_EOF(self, arg):
         """exit the program 
@@ -66,20 +65,34 @@ class HBNBCommand(cmd.Cmd):
         Prints the string representation of an instance 
         based on the class name and id
         """
+   
         args = arg.split()
-        if len(args) == 0:
-            print("** class name missing **")
-        elif len(args) == 1 and args[0] in self.classes:
-            print("** instance id missing **")
-        elif args[0] not in self.classes:
-            print("** class doesn't exist **")
+        instances = storage.all()
+
+        if len(args) < 2:
+
+            if len(args) == 0:
+             print("** class name missing **")
+
         else:
-            instances = storage.all()
-            instance_id = "{}.{}".format(args[0], args[1])
-            try:
-                print(instances[instance_id])
-            except:
-                print("** no instance found **")
+            print("** instance id missing **")
+        return
+
+        if args[0] not in classes:
+
+            print("** class doesn't exist **")
+            return
+
+        record  = "{}.{}".format(args[0], args[1])
+
+        if record in instances:
+            print(instances[record])
+
+        else:
+            print("** no instance found **")
+
+
+
 
     def do_destroy(self, arg):
         """
@@ -106,23 +119,23 @@ class HBNBCommand(cmd.Cmd):
         Prints all string representation of all instances
         based or not on the class name
         """
-        commands = arg.split()
-        objs = models.storage.all()
-        lis = []
-        if len(commands) == 0:
-            for key in objs:
-                lis.append(objs[key].__str__())
-            print(lis)
-        elif commands[0] in models:
-            for key in objs:
-                if objs[key].__class__.__name__ == commands[0]:
-                    lis.append(objs[key].__str__())
-            print(lis)
+
+        instances = storage.all()
+        
+        if not arg:
+            for instances in instances.values():
+                print(str(instances))
+        
+        elif arg not in classes:
+            print("**class doesn't exits**")
+
         else:
-            print("** class doesn't exist **")
+            for key, instances in instances.instancess():
 
-
-    def do_update(self, arg):
+                if key.split('.')[0] == arg:
+                    print(str(instances))
+       
+def do_update(self, arg):
         """
        Updates an instance based on the class name and id  
         """
@@ -140,7 +153,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             instances = storage.all()
-            for key, value in instances.items():
+            for key, value in instances.instancess():
                 print("This is the key {}".format(key))
                 if args[3][0] == "" and args[3][-1] == "":
                     args[3] = args[3][1:-1]

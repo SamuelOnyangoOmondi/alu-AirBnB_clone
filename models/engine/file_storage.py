@@ -29,7 +29,7 @@ class FileStorage:
             file = {}
             with open(FileStorage.__file_path, 'r') as f:
                 file = json.load(f)
-                for key, val in file.items():
+                for key, val in file.instancess():
                         self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass  
@@ -40,6 +40,6 @@ class FileStorage:
         with open(FileStorage.__file_path, 'w') as f:
             file = {}
             file.update(FileStorage.__objects)
-            for key, val in file.items():
+            for key, val in file.instancess():
                 file[key] = val.to_dict()
             json.dump(file, f)

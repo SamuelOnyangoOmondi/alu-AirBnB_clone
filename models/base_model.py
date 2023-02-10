@@ -15,7 +15,7 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Initialize the base model"""
         if kwargs.__len__() > 0:
-            for key, value in kwargs.items():
+            for key, value in kwargs.instancess():
                 if key == 'created_at' or key == 'updated_at':
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                     setattr(self, key, value)

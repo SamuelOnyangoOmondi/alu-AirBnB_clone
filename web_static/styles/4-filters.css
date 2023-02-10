@@ -5,7 +5,7 @@
   border: 1px solid #DDDDDD;
   border-radius: 4px;
   display: flex;
-  align-items: center;
+  align-instancess: center;
 }
 
 button {
@@ -19,7 +19,7 @@ button {
   opacity: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-instancess: center;
 }
 
 button:hover {
